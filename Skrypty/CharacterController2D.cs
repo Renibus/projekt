@@ -24,7 +24,9 @@ public class CharacterController2D : MonoBehaviour
 
     [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
 
+    [SerializeField] string walkingSound="walk";
 
+    AudioManager audioManager;
 
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 
@@ -61,6 +63,15 @@ public class CharacterController2D : MonoBehaviour
     private bool m_wasCrouching = false;
 
 
+    private void Start()
+    {
+        audioManager = AudioManager.instance;
+        if (audioManager == null)
+        {
+            Debug.LogError("ni ma");
+        }
+
+    }
 
     private void Awake()
 
@@ -211,7 +222,7 @@ public class CharacterController2D : MonoBehaviour
 
             }
 
-
+           
 
             // Move the character by finding the target velocity
 
@@ -232,7 +243,7 @@ public class CharacterController2D : MonoBehaviour
                 // ... flip the player.
 
                 Flip();
-
+                audioManager.PlaySound(walkingSound);
             }
 
             // Otherwise if the input is moving the player left and the player is facing right...
@@ -244,7 +255,7 @@ public class CharacterController2D : MonoBehaviour
                 // ... flip the player.
 
                 Flip();
-
+                audioManager.PlaySound(walkingSound);
             }
 
         }

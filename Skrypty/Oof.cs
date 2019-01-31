@@ -9,7 +9,7 @@ public class Oof : MonoBehaviour {
         Player _player = collision.collider.GetComponent<Player>();
         if (_player!=null)
         {
-            _player.DamagePlayer(3);
+            _player.DamagePlayer(1);
         }
     }
 }

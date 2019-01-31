@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     [System.Serializable]
     public class PlayerStats
     {
+
+       
         public int maxHealth = 3;
         private int _currHealth;
         public int currHealth
@@ -25,9 +27,25 @@ public class Player : MonoBehaviour
 
     public int KillZoneDown = -20;
 
+    public string deathSound="death";
+
+    private AudioManager audioManager;
+
+    [SerializeField]
+    private GameObject gameOverUI;
+
+
+
+
     private void Start()
     {
         stats.Init();
+
+        audioManager = AudioManager.instance;
+        if (audioManager==null)
+        {
+            Debug.LogError("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        }
     }
 
     private void Update()
@@ -41,6 +59,8 @@ public class Player : MonoBehaviour
         stats.currHealth -= damage;
         if (stats.currHealth <= 0)
         {
+            audioManager.PlaySound(deathSound);
+            gameOverUI.SetActive(true);
             GameMaster.KillPlayer(this);
         }
     }
